@@ -1,26 +1,26 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.CENTER;
-import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.LEFT;
-import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.RIGHT;
-import static org.openftc.easyopencv.OpenCvCameraRotation.SIDEWAYS_LEFT;
+        import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.CENTER;
+        import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.LEFT;
+        import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.RIGHT;
+        import static org.openftc.easyopencv.OpenCvCameraRotation.SIDEWAYS_LEFT;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
+        import com.qualcomm.hardware.bosch.BNO055IMU;
+        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.hardware.CRServo;
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.DcMotorSimple;
+        import com.qualcomm.robotcore.util.ElapsedTime;
+        import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+        import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+        import org.openftc.easyopencv.OpenCvCamera;
+        import org.openftc.easyopencv.OpenCvCameraFactory;
+        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name = "Color")
 public class Color extends LinearOpMode {
@@ -59,11 +59,11 @@ public class Color extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 3.7;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.4;
+    static final double DRIVE_SPEED = 0.6;
 
-    static final double COUNTS_PER_SPOOL_MOTOR_REV = 538;
+    static final double COUNTS_PER_SPOOL_MOTOR_REV = 2786.2;
     static final double DRIVE_SPOOL_GEAR_REDUCTION = 1;     // This is < 1.0 if geared UP
-    static final double SPOOL_DIAMETER_INCHES = 1.7;     // For figuring circumference
+    static final double SPOOL_DIAMETER_INCHES = 2.2;     // For figuring circumference
     static final double ROTATION_PER_INCH = (COUNTS_PER_SPOOL_MOTOR_REV * DRIVE_SPOOL_GEAR_REDUCTION) /
             (SPOOL_DIAMETER_INCHES * 3.1415);
 
@@ -146,19 +146,29 @@ public class Color extends LinearOpMode {
         SleeveDetection.ParkingPosition P = sleeveDetection.getPosition();
 
         if (P == LEFT) {
-            encoderDrive(DRIVE_SPEED, 5, 5, 5.0);
-            encoderDrive(DRIVE_SPEED, 28, -28, 2.0);
-            encoderDrive(DRIVE_SPEED, 34, 34, 5.0);
-            encoderDrive(DRIVE_SPEED, -28, 28, 5.0);
-            encoderDrive(DRIVE_SPEED, 33, 33, 5.0);
+            encoderDrive(DRIVE_SPEED, 81, 81, 5.0);
+            strafing(DRIVE_SPEED, 67, 67, 2.0);
+            liftDrive(.6,160,5.0);
+            encoderDrive(DRIVE_SPEED,-5,-5,5.0);
+            intake.setPower(-10);
+            liftDrive(.6,-140,1.0);
+            strafing(DRIVE_SPEED, -17, -17, 2.0);
+
+
         } else if (P == CENTER) {
-            encoderDrive(DRIVE_SPEED, 37, 37, 5.0);
+            encoderDrive(DRIVE_SPEED, 83, 83, 5.0);
+            strafing(DRIVE_SPEED, 24, 24, 2.0);
+            liftDrive(.6,50,1.0);
+            intake.setPower(-10);
+            liftDrive(.6,-40,1.0);
+            strafing(DRIVE_SPEED, -30, -30, 2.0);
+
         } else if (P == RIGHT) {
-            encoderDrive(DRIVE_SPEED, 5, 5, 5.0);
+            encoderDrive(DRIVE_SPEED, 100, 100, 5.0);
             encoderDrive(DRIVE_SPEED, -29, 29, 5.0);
-            encoderDrive(DRIVE_SPEED, 32, 32, 5.0);
+            encoderDrive(DRIVE_SPEED, 30, 30, 5.0);
             encoderDrive(DRIVE_SPEED, 28, -28, 5.0);
-            encoderDrive(DRIVE_SPEED, 33, 33, 5.0);
+            encoderDrive(DRIVE_SPEED, -33, -33, 5.0);
         }
 
         telemetry.addData("Path", "Complete");
@@ -260,7 +270,7 @@ public class Color extends LinearOpMode {
 
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (VL.isBusy() && VR.isBusy())) {
+                    (VL.isBusy() && VR.isBusy() )) {
                 // Display it for the driver.
                 telemetry.addData("Running to", " %7d :%7d", newVLTarget, newVRTarget);
                 telemetry.addData("Currently at", " at %7d :%7d", newVLTarget, newVRTarget,
@@ -275,6 +285,7 @@ public class Color extends LinearOpMode {
             VR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             sleep(250);
+
 
 
         }
@@ -343,17 +354,4 @@ public class Color extends LinearOpMode {
         }
 
 
-    }
-}
-
-     /* public void setViperPower(double power){
-        if (Math.abs(VL.getCurrentPosition() - currentTarget) > 15
-            currentPower = power;
-            currentStatus = "Going to: " + currentTarget;
-        } else {
-            double posErr = currentTarget - VL.getCurrentPosition();
-            currentPower = (posErr * kp);
-            currentStatus = "Holding at: " + VL.getCurrentPosition();
-        }
-    }
-*/
+    }}
