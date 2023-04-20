@@ -157,11 +157,6 @@ public class Color extends LinearOpMode {
 
         } else if (P == CENTER) {
             encoderDrive(DRIVE_SPEED, 83, 83, 5.0);
-            strafing(DRIVE_SPEED, 24, 24, 2.0);
-            liftDrive(.6,50,1.0);
-            intake.setPower(-10);
-            liftDrive(.6,-40,1.0);
-            strafing(DRIVE_SPEED, -30, -30, 2.0);
 
         } else if (P == RIGHT) {
             encoderDrive(DRIVE_SPEED, 100, 100, 5.0);
