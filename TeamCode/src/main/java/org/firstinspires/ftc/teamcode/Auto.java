@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Encoder Auto", group="Robot")
@@ -37,15 +38,15 @@ public class Auto extends LinearOpMode {
         // Initialize the drive system variables.
         fr  = hardwareMap.get(DcMotor.class, "frontRight");
         fl = hardwareMap.get(DcMotor.class, "frontLeft");
-        br  = hardwareMap.get(DcMotor.class, "frontRight");
-        bl  = hardwareMap.get(DcMotor.class, "frontRight");
+        br  = hardwareMap.get(DcMotor.class, "backRight");
+        bl  = hardwareMap.get(DcMotor.class, "backLeft");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        fr.setDirection(DcMotor.Direction.REVERSE);
+        fr.setDirection(DcMotor.Direction.FORWARD);
         fl.setDirection(DcMotor.Direction.FORWARD);
-        br.setDirection(DcMotor.Direction.REVERSE);
+        br.setDirection(DcMotor.Direction.FORWARD);
         bl.setDirection(DcMotor.Direction.FORWARD);
 
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -71,9 +72,9 @@ public class Auto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderStrafe(DRIVE_SPEED, 12, 12, 4.0);  // S2: Strafe Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  12,  12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
+        encoderStrafe(DRIVE_SPEED, 40, 40, 5.0);  // S2: Strafe Left 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, -10, -10, 5.0); // S3: Reverse 10 Inches with 5 Sec timeout
 
 
         telemetry.addData("Path", "Complete");
@@ -167,6 +168,7 @@ public class Auto extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             // For strafing one side's wheels 'attract' each other while the other side 'repels' each other
+            //The positive value will make the robot go to the left with current arrangement
             newflTarget = fl.getCurrentPosition() - (int)(leftInches * COUNTS_PER_INCH);
             newfrTarget = fr.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             newblTarget = bl.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
