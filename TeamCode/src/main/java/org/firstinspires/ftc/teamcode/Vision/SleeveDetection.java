@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Vision;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -17,9 +17,9 @@ public class SleeveDetection extends OpenCvPipeline {
      */
 
     public enum ParkingPosition {
-        LEFT,
-        CENTER,
-        RIGHT
+        THREE,
+        TWO,
+        ONE
     }
 
     // TOPLEFT anchor point for the bounding box
@@ -44,7 +44,7 @@ public class SleeveDetection extends OpenCvPipeline {
             SLEEVE_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
 
     // Running variable storing the parking position
-    private volatile ParkingPosition position = ParkingPosition.LEFT;
+    private volatile ParkingPosition position = ParkingPosition.THREE;
 
 
     @Override
@@ -57,7 +57,7 @@ public class SleeveDetection extends OpenCvPipeline {
 
         // Change the bounding box color based on the sleeve color
         if (sumColors.val[0] == minColor) {
-            position = ParkingPosition.RIGHT;
+            position = ParkingPosition.ONE;
             Imgproc.rectangle(
                     input,
                     sleeve_pointA,
@@ -66,7 +66,7 @@ public class SleeveDetection extends OpenCvPipeline {
                     2
             );
         } else if (sumColors.val[1] == minColor) {
-            position = ParkingPosition.LEFT;
+            position = ParkingPosition.THREE;
             Imgproc.rectangle(
                     input,
                     sleeve_pointA,
@@ -75,7 +75,7 @@ public class SleeveDetection extends OpenCvPipeline {
                     2
             );
         } else {
-            position = ParkingPosition.CENTER;
+            position = ParkingPosition.TWO;
             Imgproc.rectangle(
                     input,
                     sleeve_pointA,

@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Vision;
 
-        import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.CENTER;
-        import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.LEFT;
-        import static org.firstinspires.ftc.teamcode.SleeveDetection.ParkingPosition.RIGHT;
+
+        import static org.firstinspires.ftc.teamcode.Vision.SleeveDetection.ParkingPosition.ONE;
+        import static org.firstinspires.ftc.teamcode.Vision.SleeveDetection.ParkingPosition.THREE;
+        import static org.firstinspires.ftc.teamcode.Vision.SleeveDetection.ParkingPosition.TWO;
         import static org.openftc.easyopencv.OpenCvCameraRotation.SIDEWAYS_LEFT;
 
         import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -10,17 +11,12 @@ package org.firstinspires.ftc.teamcode;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.hardware.CRServo;
         import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.DcMotorSimple;
         import com.qualcomm.robotcore.util.ElapsedTime;
-        import com.qualcomm.robotcore.util.Range;
 
         import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+        import org.firstinspires.ftc.teamcode.Vision.SleeveDetection;
         import org.openftc.easyopencv.OpenCvCamera;
         import org.openftc.easyopencv.OpenCvCameraFactory;
-        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name = "Color")
 public class Color extends LinearOpMode {
@@ -145,7 +141,7 @@ public class Color extends LinearOpMode {
 
         SleeveDetection.ParkingPosition P = sleeveDetection.getPosition();
 
-        if (P == LEFT) {
+        if (P == THREE) {
             encoderDrive(DRIVE_SPEED, 81, 81, 5.0);
             strafing(DRIVE_SPEED, 67, 67, 2.0);
             liftDrive(.6,160,5.0);
@@ -155,10 +151,10 @@ public class Color extends LinearOpMode {
             strafing(DRIVE_SPEED, -17, -17, 2.0);
 
 
-        } else if (P == CENTER) {
+        } else if (P == TWO) {
             encoderDrive(DRIVE_SPEED, 83, 83, 5.0);
 
-        } else if (P == RIGHT) {
+        } else if (P == ONE) {
             encoderDrive(DRIVE_SPEED, 100, 100, 5.0);
             encoderDrive(DRIVE_SPEED, -29, 29, 5.0);
             encoderDrive(DRIVE_SPEED, 30, 30, 5.0);
