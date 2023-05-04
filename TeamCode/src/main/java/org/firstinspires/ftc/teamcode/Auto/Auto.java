@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Encoder Auto", group="Robot")
+@Autonomous(name="Auto", group="Robot")
 
 public class Auto extends LinearOpMode {
 
@@ -15,6 +15,7 @@ public class Auto extends LinearOpMode {
     private DcMotor         fl  = null;
     private DcMotor         bl  = null;
     private DcMotor         br  = null;
+
 
     private ElapsedTime     runtime = new ElapsedTime();
 

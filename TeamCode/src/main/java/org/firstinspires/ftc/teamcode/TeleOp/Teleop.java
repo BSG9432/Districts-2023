@@ -12,6 +12,9 @@ public class Teleop extends OpMode {
     DcMotor backLeft;
     DcMotor frontRight;
     DcMotor backRight;
+    DcMotor viper;
+    CRServo inTake;
+    CRServo rotate;
 
 
     @Override
@@ -20,11 +23,16 @@ public class Teleop extends OpMode {
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
+        viper = hardwareMap.dcMotor.get("viper");
+        inTake = hardwareMap.crservo.get("intake");
+        rotate = hardwareMap.crservo.get("rotate");
 
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        viper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
     }
 
@@ -72,6 +80,34 @@ public class Teleop extends OpMode {
             backLeft.setPower(0);
             frontRight.setPower(0);
             backRight.setPower(0);
+        }
+        //Cascade
+        if (Math.abs(-gamepad2.left_stick_y) > .1) {
+            viper.setPower(-gamepad2.left_stick_y * .5);
+        }
+        else {
+            viper.setPower(0);
+        }
+        //Intake
+        if (Math.abs(-gamepad2.left_stick_x) > .2) {
+            inTake.setPower(1);
+        }
+        else {
+            inTake.setPower(0);
+        }
+        //Rotate Left
+        if (gamepad2.left_bumper) {
+            rotate.setPower(-.9);
+        }
+        else {
+            rotate.setPower(0);
+        }
+        //Rotate Right
+        if (gamepad2.right_bumper) {
+            rotate.setPower(.9);
+        }
+        else {
+            rotate.setPower(0);
         }
 
     }
