@@ -88,9 +88,16 @@ public class Teleop extends OpMode {
         else {
             viper.setPower(0);
         }
-        //Intake
-        if (Math.abs(-gamepad2.left_stick_x) > .2) {
+        //Intake in
+        if (Math.abs(-gamepad2.left_trigger) > .2) {
             inTake.setPower(1);
+        }
+        else {
+            inTake.setPower(0);
+        }
+        //Intake out
+        if (Math.abs(-gamepad2.right_trigger) > .2) {
+            inTake.setPower(-1);
         }
         else {
             inTake.setPower(0);
