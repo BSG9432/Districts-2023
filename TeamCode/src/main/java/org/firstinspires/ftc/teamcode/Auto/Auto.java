@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -74,8 +75,8 @@ public class Auto extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  12,  12, 5.0);  // S1: Forward 12 Inches with 5 Sec timeout
-        encoderStrafe(DRIVE_SPEED, 40, 40, 5.0);  // S2: Strafe Left 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, -10, -10, 5.0); // S3: Reverse 10 Inches with 5 Sec timeout
+        encoderStrafe(DRIVE_SPEED, 20, 20, 5.0);  // S2: Strafe Left 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 5, 5, 5.0); // S3: Reverse 10 Inches with 5 Sec timeout
 
 
         telemetry.addData("Path", "Complete");
