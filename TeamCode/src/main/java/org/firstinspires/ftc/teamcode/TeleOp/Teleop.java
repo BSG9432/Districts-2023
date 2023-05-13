@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "Teleop")
 public class Teleop extends OpMode {
 
-    DcMotor frontLeft;
-    DcMotor backLeft;
-    DcMotor frontRight;
-    DcMotor backRight;
+    DcMotor fL;
+    DcMotor bL;
+    DcMotor fR;
+    DcMotor bR;
     DcMotor viper;
     CRServo inTake;
     CRServo rotate;
@@ -19,18 +19,18 @@ public class Teleop extends OpMode {
 
     @Override
     public void init() {
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        backLeft = hardwareMap.dcMotor.get("backLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
-        backRight = hardwareMap.dcMotor.get("backRight");
+        fL = hardwareMap.dcMotor.get("fL");
+        bL = hardwareMap.dcMotor.get("bL");
+        fR = hardwareMap.dcMotor.get("fR");
+        bR = hardwareMap.dcMotor.get("bR");
         viper = hardwareMap.dcMotor.get("viper");
-        inTake = hardwareMap.crservo.get("intake");
+        inTake = hardwareMap.crservo.get("inTake");
         rotate = hardwareMap.crservo.get("rotate");
 
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         viper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
@@ -39,68 +39,62 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
         //Front back Left
-        if (Math.abs(-gamepad1.left_stick_y) > .2) {
-            frontLeft.setPower(-gamepad1.left_stick_y * -1);
-            backLeft.setPower(-gamepad1.left_stick_y * -1);
+        if (Math.abs(gamepad1.left_stick_y) > .2) {
+            fL.setPower(-gamepad1.left_stick_y * 1);
+            bL.setPower(-gamepad1.left_stick_y * 1);
         } else {
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+            fL.setPower(0);
+            bL.setPower(0);
         }
         //Front back Right
         if (Math.abs(-gamepad1.right_stick_y) > .2) {
-            frontRight.setPower(-gamepad1.right_stick_y * 1);
-            backRight.setPower(-gamepad1.right_stick_y * 1);
+            fR.setPower(-gamepad1.right_stick_y * 1);
+            bR.setPower(-gamepad1.right_stick_y * 1);
         } else {
-            frontRight.setPower(0);
-            backRight.setPower(0);
+            fR.setPower(0);
+            bR.setPower(0);
         }
 
         //Side speed Right
         if (gamepad1.right_bumper) {
-            frontLeft.setPower(-.9);
-            backLeft.setPower(.9);
-            frontRight.setPower(-.9);
-            backRight.setPower(.9);
+            fL.setPower(-.9);
+            bL.setPower(.9);
+            fR.setPower(.9);
+            bR.setPower(-.9);
         }
         else {
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
-            frontRight.setPower(0);
-            backRight.setPower(0);
+            fL.setPower(0);
+            bL.setPower(0);
+            fR.setPower(0);
+            bR.setPower(0);
         }
         //Side speed Left
         if (gamepad1.left_bumper) {
-            frontLeft.setPower(.9);
-            backLeft.setPower(-.9);
-            frontRight.setPower(.9);
-            backRight.setPower(-.9);
+            fL.setPower(.9);
+            bL.setPower(-.9);
+            fR.setPower(-.9);
+            bR.setPower(.9);
         }
         else {
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
-            frontRight.setPower(0);
-            backRight.setPower(0);
+            fL.setPower(0);
+            bL.setPower(0);
+            fR.setPower(0);
+            bR.setPower(0);
         }
         //Cascade
         if (Math.abs(-gamepad2.left_stick_y) > .1) {
-            viper.setPower(-gamepad2.left_stick_y * .5);
+            viper.setPower(gamepad2.left_stick_y * .5);
         }
         else {
             viper.setPower(0);
         }
         //Intake in
-        if (Math.abs(-gamepad2.left_trigger) > .2) {
+        if (gamepad2.b) {
             inTake.setPower(1);
         }
-        else {
-            inTake.setPower(0);
-        }
         //Intake out
-        if (Math.abs(-gamepad2.right_trigger) > .2) {
+        else if (gamepad2.a) {
             inTake.setPower(-1);
-        }
-        else {
-            inTake.setPower(0);
         }
         //Rotate Left
         if (gamepad2.left_bumper) {
